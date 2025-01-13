@@ -9,7 +9,7 @@
 ------------ |--------|-----------|------------| ------------
 `timestamp`  | query  | string    | `YES`      | 현재 UTC 타임스탬프
 `signature`  | query  | string    | `YES`      | 서명, 요청 예제 참조
-`X-BH-APIKEY`| header | string    | `YES`      | API 키, [사용자 센터](https://www.doex.com/user/service_api)에서 가져오기
+`X-BH-APIKEY`| header | string    | `YES`      | API 키는 고객 서비스에 문의하여 받으십시오.
 
 # 요청 예제
 

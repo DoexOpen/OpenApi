@@ -37,7 +37,7 @@
 ## Broker API URL
 
 Broker API URL
-Broker Open API의 주소는 여기를 참조하세요.
+Broker Open API의 주소는 여기를 [참조하세요](../endpoint.md).
 
 ## 계약 정보
 

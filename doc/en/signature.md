@@ -9,7 +9,7 @@ Name | Location | Type | Required | Description
 ------------ | -------- | ----------- | ------------ | ------------
 `timestamp` | query | string | `YES` | Current UTC timestamp
 `signature` | query | string | `YES` | Signature, [see Request Example](#Request-Example)
-`X-BH-APIKEY` | header | string | `YES` | API key, available in the [User Center](https://www.doex.com/user/service_api)
+`X-BH-APIKEY` | header | string | `YES` | API key, please contact customer service to obtain
 
 # Request Example
 

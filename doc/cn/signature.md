@@ -9,7 +9,7 @@
 ------------ |--------|-----------|------------| ------------ | 
 `timestamp`  | query  | string    | `YES`      |当前UTC时间戳
 `signature`  | query  | string    | `YES`      |签名,参见[请求示例](#请求示例)
-`X-BH-APIKEY`| header | string    | `YES`      | API密钥, 请在[用户中心](https://www.doex.com/user/service_api)获取
+`X-BH-APIKEY`| header | string    | `YES`      | API密钥, 请联系客服获取
 
 
 # 请求示例
