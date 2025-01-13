@@ -8,7 +8,7 @@
 이름 | 위치 | 유형 | 필수 여부 | 설명
 ------------ |--------|-----------|------------| ------------
 `timestamp`  | query  | string    | `YES`      | 현재 UTC 타임스탬프
-`signature`  | query  | string    | `YES`      | 서명, 요청 예제 참조
+`signature`  | query  | string    | `YES`      | 서명, [요청 예제 참조](#요청-예제)
 `X-BH-APIKEY`| header | string    | `YES`      | API 키는 고객 서비스에 문의하여 받으십시오.
 
 # 요청 예제
