@@ -36,7 +36,7 @@
 
 ## Base Url
 
-The base url of broker open API can be found [here](doc/endpoint.md)
+The base url of broker open API can be found [here](../endpoint.md)
 
 ## `brokerInfo`
 
@@ -704,7 +704,7 @@ Name | Type | Example | Description
 }
 ```
 
-Similar code found with 1 license type
+
 
 ## `Contract Order History`
 
@@ -786,7 +786,7 @@ Name | Type | Example | Description
 ]
 ```
 
-Similar code found with 1 license type
+
 
 ## `Order Details`
 
@@ -864,7 +864,7 @@ Name | Type | Example | Description
 }
 ```
 
-Similar code found with 1 license type
+
 
 ## `Trade History`
 
@@ -928,7 +928,7 @@ Name | Type | Example | Description
 ]
 ```
 
-Similar code found with 1 license type
+
 
 ## `Current Positions`
 
@@ -1343,9 +1343,9 @@ Name | Type | Required | Description
 ```
 
 
-## Key parameter explanation:
+# Key parameter explanation:
 
-### `side`
+## `side`
 
 The side of the trade.
 
@@ -1357,7 +1357,7 @@ The side of the trade.
 
 `BUY_CLOSE`: close a short position.
 
-### `priceType`
+## `priceType`
 
 Price types.
 
@@ -1379,7 +1379,7 @@ For example, if you are opening 10 contracts long, the best buy price is 10 and 
 
 For example, if you are opening 10 contracts long, the latest price is 10. Then you will be sending out an order buying 10 contracts at (10 * 1.05)=10.5.
 
-### `timeInForce`
+## `timeInForce`
 
 Time in force.
 
@@ -1391,7 +1391,7 @@ Time in force.
 
 `LIMIT_MAKER`: Order will be cancelled if executed immediately.
 
-### `orderType`
+## `orderType`
 
 Order type.
 

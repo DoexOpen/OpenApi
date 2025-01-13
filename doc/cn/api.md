@@ -1328,9 +1328,9 @@ GET /exapi/contract/v1/query_leverage_merge
 }
 ```
 
-## 关键参数解释说明:
+# 关键参数解释说明:
 
-### `side`
+## `side`
 
 交易的方向
 
@@ -1342,7 +1342,7 @@ GET /exapi/contract/v1/query_leverage_merge
 
 `BUY_CLOSE`: 平空仓
 
-### `priceType`
+## `priceType`
 
 价格类型
 
@@ -1364,7 +1364,7 @@ GET /exapi/contract/v1/query_leverage_merge
 
 假设你开多10张合约，最新成交价为10，你将会下10张（10*1.05=)10.5的买单。
 
-### `timeInForce`
+## `timeInForce`
 
 时效单类型。
 
@@ -1376,7 +1376,7 @@ GET /exapi/contract/v1/query_leverage_merge
 
 `LIMIT_MAKER`: 如果订单会马上成交，订单会被撤销。
 
-### `orderType`
+## `orderType`
 
 订单类型
 
