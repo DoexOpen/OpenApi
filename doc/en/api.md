@@ -110,80 +110,116 @@ name|type|example|description
 `maintMargin`|float|`0.03`|Minimum maintenance margin rate requirement.
 
 ### **Example:**
-```js
+```json
 {
-  "timezone":"UTC",
-  "serverTime":"1570701444309",
-  "brokerFilters":[],
-  "rateLimits":[
+  "timezone": "UTC",
+  "serverTime": "1736752701537",
+  "brokerFilters": [],
+  "rateLimits": [
     {
-      "rateLimitType":"ORDERS",
-      "interval":"SECOND",
-      "limit":20
+      "rateLimitType": "REQUEST_WEIGHT",
+      "interval": "MINUTE",
+      "intervalUnit": 1,
+      "limit": 600
     },
-    {"rateLimitType":"ORDERS",
-    "interval":"DAY",
-    "limit":350000
-  },{
-    "rateLimitType":"REQUEST_WEIGHT",
-    "interval":"MINUTE",
-    "limit":1500
-  }],
-  "contracts":[
     {
-      "filters":[
-        {"minPrice":"0.01",
-        "maxPrice":"100000.00000000",
-        "tickSize":"0.01",
-        "filterType":"PRICE_FILTER"
-      },
-      {
-        "minQty":"1",
-        "maxQty":"100000.00000000",
-        "stepSize":"1",
-        "filterType":"LOT_SIZE"
-      },{
-        "minNotional":"0.000001",
-        "filterType":"MIN_NOTIONAL"
-      }],
-      "exchangeId":"301",
-      "symbol":"BTC-SWAP-USDT",
-      "symbolName":"BTC-SWAP-USDT",
-      "status":"TRADING",
-      "baseAsset":"BTC-SWAP-USDT",
-      "baseAssetPrecision":"1",
-      "quoteAsset":"USDT",
-      "quoteAssetPrecision":"0.01",
-      "icebergAllowed":false,
-      "inverse":true,
-      "index":"BTCUSDT",
-      "marginToken":"TBTC",
-      "marginPrecision":"0.00000001",
-      "contractMultiplier":"1.0",
-      "riskLimits":[
+      "rateLimitType": "ORDERS",
+      "interval": "SECOND",
+      "intervalUnit": 30,
+      "limit": 30
+    }
+  ],
+  "contracts": [
+    {
+      "filters": [
         {
-          "riskLimitId":"200000001",
-          "quantity":"1000000.0",
-          "initialMargin":"0.01",
-          "maintMargin":"0.005"
+          "minPrice": "0.00001",
+          "maxPrice": "100000.00000000",
+          "tickSize": "0.00001",
+          "filterType": "PRICE_FILTER"
         },
         {
-          "riskLimitId":"200000002",
-          "quantity":"2000000.0",
-          "initialMargin":"0.02",
-          "maintMargin":"0.01"
+          "minQty": "300",
+          "maxQty": "100000.00000000",
+          "stepSize": "1",
+          "filterType": "LOT_SIZE"
         },
         {
-          "riskLimitId":"200000003",
-          "quantity":"3000000.0",
-          "initialMargin":"0.03",
-          "maintMargin":"0.015"
+          "minNotional": "20",
+          "filterType": "MIN_NOTIONAL"
+        }
+      ],
+      "exchangeId": "301",
+      "symbol": "1000BONK-SWAP-USDT",
+      "symbolName": "1000BONK-SWAP-USDTUSDT",
+      "status": "TRADING",
+      "baseAsset": "1000BONK-SWAP-USDT",
+      "baseAssetPrecision": "1",
+      "quoteAsset": "USDT",
+      "quoteAssetPrecision": "0.00001",
+      "icebergAllowed": false,
+      "inverse": false,
+      "index": "1000BONKUSDT",
+      "marginToken": "USDT",
+      "marginPrecision": "0.00000001",
+      "contractMultiplier": "1.0",
+      "underlying": "1000BONK",
+      "riskLimits": [
+        {
+          "riskLimitId": "200000629",
+          "quantity": "175000.0",
+          "initialMargin": "0.02",
+          "maintMargin": "0.01"
         },
         {
-          "riskLimitId":"200000004",
-          "quantity":"4000000.0",
-          "initialMargin":"0.04",
-          "maintMargin":"0.02"
+          "riskLimitId": "200000630",
+          "quantity": "850000.0",
+          "initialMargin": "0.05",
+          "maintMargin": "0.025"
+        },
+        {
+          "riskLimitId": "200000631",
+          "quantity": "3500000.0",
+          "initialMargin": "0.1",
+          "maintMargin": "0.05"
+        },
+        {
+          "riskLimitId": "200000632",
+          "quantity": "7000000.0",
+          "initialMargin": "0.2",
+          "maintMargin": "0.1"
+        }
+      ]
+    }
+  ],
+  "tokens": [
+    {
+      "orgId": "9001",
+      "tokenId": "ACT",
+      "tokenName": "ACT",
+      "tokenFullName": "The AI Prophecy",
+      "allowWithdraw": true,
+      "allowDeposit": true,
+      "chainTypes": [
+        {
+          "chainType": "Solana",
+          "allowDeposit": true,
+          "allowWithdraw": true
+        }
+      ]
+    },
+    {
+      "orgId": "9001",
+      "tokenId": "ACX",
+      "tokenName": "ACX",
+      "tokenFullName": "Across Protocol",
+      "allowWithdraw": true,
+      "allowDeposit": true,
+      "chainTypes": [
+        {
+          "chainType": "ERC20",
+          "allowDeposit": true,
+          "allowWithdraw": true
         }
       ]
     }

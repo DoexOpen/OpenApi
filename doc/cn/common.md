@@ -256,50 +256,120 @@ NONE
 
 **Response:**
 
-```javascript
+```json
 {
   "timezone": "UTC",
-  "serverTime": 1538323200000,
-  "rateLimits": [{
-      "rateLimitType": "REQUESTS_WEIGHT",
+  "serverTime": "1736752701537",
+  "brokerFilters": [],
+  "rateLimits": [
+    {
+      "rateLimitType": "REQUEST_WEIGHT",
       "interval": "MINUTE",
-      "limit": 1500
+      "intervalUnit": 1,
+      "limit": 600
     },
     {
       "rateLimitType": "ORDERS",
       "interval": "SECOND",
-      "limit": 20
-    },
-    {
-      "rateLimitType": "ORDERS",
-      "interval": "DAY",
-      "limit": 350000
+      "intervalUnit": 30,
+      "limit": 30
     }
   ],
-  "brokerFilters":[],
-  "symbols": [{
-    "symbol": "ETHBTC",
-    "status": "TRADING",
-    "baseAsset": "ETH",
-    "baseAssetPrecision": "0.001",
-    "quoteAsset": "BTC",
-    "quotePrecision": "0.01",
-    "icebergAllowed": false,
-    "filters": [{
-      "filterType": "PRICE_FILTER",
-      "minPrice": "0.00000100",
-      "maxPrice": "100000.00000000",
-      "tickSize": "0.00000100"
-    }, {
-      "filterType": "LOT_SIZE",
-      "minQty": "0.00100000",
-      "maxQty": "100000.00000000",
-      "stepSize": "0.00100000"
-    }, {
-      "filterType": "MIN_NOTIONAL",
-      "minNotional": "0.00100000"
-    }]
-  }]
+  "contracts": [
+    {
+      "filters": [
+        {
+          "minPrice": "0.00001",
+          "maxPrice": "100000.00000000",
+          "tickSize": "0.00001",
+          "filterType": "PRICE_FILTER"
+        },
+        {
+          "minQty": "300",
+          "maxQty": "100000.00000000",
+          "stepSize": "1",
+          "filterType": "LOT_SIZE"
+        },
+        {
+          "minNotional": "20",
+          "filterType": "MIN_NOTIONAL"
+        }
+      ],
+      "exchangeId": "301",
+      "symbol": "1000BONK-SWAP-USDT",
+      "symbolName": "1000BONK-SWAP-USDTUSDT",
+      "status": "TRADING",
+      "baseAsset": "1000BONK-SWAP-USDT",
+      "baseAssetPrecision": "1",
+      "quoteAsset": "USDT",
+      "quoteAssetPrecision": "0.00001",
+      "icebergAllowed": false,
+      "inverse": false,
+      "index": "1000BONKUSDT",
+      "marginToken": "USDT",
+      "marginPrecision": "0.00000001",
+      "contractMultiplier": "1.0",
+      "underlying": "1000BONK",
+      "riskLimits": [
+        {
+          "riskLimitId": "200000629",
+          "quantity": "175000.0",
+          "initialMargin": "0.02",
+          "maintMargin": "0.01"
+        },
+        {
+          "riskLimitId": "200000630",
+          "quantity": "850000.0",
+          "initialMargin": "0.05",
+          "maintMargin": "0.025"
+        },
+        {
+          "riskLimitId": "200000631",
+          "quantity": "3500000.0",
+          "initialMargin": "0.1",
+          "maintMargin": "0.05"
+        },
+        {
+          "riskLimitId": "200000632",
+          "quantity": "7000000.0",
+          "initialMargin": "0.2",
+          "maintMargin": "0.1"
+        }
+      ]
+    }
+  ],
+  "tokens": [
+    {
+      "orgId": "9001",
+      "tokenId": "ACT",
+      "tokenName": "ACT",
+      "tokenFullName": "The AI Prophecy",
+      "allowWithdraw": true,
+      "allowDeposit": true,
+      "chainTypes": [
+        {
+          "chainType": "Solana",
+          "allowDeposit": true,
+          "allowWithdraw": true
+        }
+      ]
+    },
+    {
+      "orgId": "9001",
+      "tokenId": "ACX",
+      "tokenName": "ACX",
+      "tokenFullName": "Across Protocol",
+      "allowWithdraw": true,
+      "allowDeposit": true,
+      "chainTypes": [
+        {
+          "chainType": "ERC20",
+          "allowDeposit": true,
+          "allowWithdraw": true
+        }
+      ]
+    }
+  ]
 }
 ```
 
