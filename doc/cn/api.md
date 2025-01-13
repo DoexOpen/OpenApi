@@ -77,14 +77,14 @@ GET /exapi/v1/brokerInfo
 
 名称|类型|例子|描述
 ------------ | ------------ | ------------ | ------------
-`symbol`|string|`BTC-PERP-REV`|合约名称
+`symbol`|string|`BTC-SWAP-USDT`|合约名称
 `status`|string|`TRADING`|合约状态
-`baseAsset`|string|`BTC-PERP-REV`|基础资产。对于合约来说，合约本身就是基础资产。
+`baseAsset`|string|`BTC-SWAP-USDT`|基础资产。对于合约来说，合约本身就是基础资产。
 `baseAssetPrecision`|float|`0.001`|基础资产（合约数量）的精度
 `quoteAsset`|string|`USDT`|定价资产。对于合约来说，这个是合约是以什么来结算的。
 `quoteAssetPrecision`|float|`0.001`|定价资产（合约价格）的精度。
 `inverse`|bool|`true`|合约是否为反向合约（true=是反向合约，false=是正向合约）。
-`index`|string|`BTCUSDT`|标的指数的名称。标的指数实时价格可在`index`端点访问得到。比如`BTC-PERP-REV`使用`BTCUSDT`为标的指数，那么可以在`index`端点寻找`BTCUSDT`的实时价格。
+`index`|string|`BTCUSDT`|标的指数的名称。标的指数实时价格可在`index`端点访问得到。比如`BTC-SWAP-USDT`使用`BTCUSDT`为标的指数，那么可以在`index`端点寻找`BTCUSDT`的实时价格。
 `contractMultiplier`|string|`true`|合约的乘数。
 `icebergAllowed`|string|`false`|是否支持冰山订单。
 
@@ -148,10 +148,10 @@ GET /exapi/v1/brokerInfo
         "filterType":"MIN_NOTIONAL"
       }],
       "exchangeId":"301",
-      "symbol":"BTC-PERP-REV",
-      "symbolName":"BTC-PERP-REV",
+      "symbol":"BTC-SWAP-USDT",
+      "symbolName":"BTC-SWAP-USDT",
       "status":"TRADING",
-      "baseAsset":"BTC-PERP-REV",
+      "baseAsset":"BTC-SWAP-USDT",
       "baseAssetPrecision":"1",
       "quoteAsset":"USDT",
       "quoteAssetPrecision":"0.01",
@@ -656,7 +656,7 @@ DELETE /exapi/contract/v1/order/cancel
 `updateTime`|long|`1551062936784`|订单上次更新的时间戳
 `orderId`|integer|`469961015902208000`|订单ID
 `clientOrderId`|string|`213443`|用户定义的订单ID
-`symbol`|string|`BTC-PERP-REV`|合约名称
+`symbol`|string|`BTC-SWAP-USDT`|合约名称
 `price`|float|`8200`|订单价格
 `leverage`|float|`4`|订单杠杆
 `origQty`|float|`1.01`|订单数量
@@ -685,7 +685,7 @@ DELETE /exapi/contract/v1/order/cancel
   'updateTime': '0',
   'orderId': '469961015902208000',
   'clientOrderId': '6423344174',
-  'symbol': 'BTC-PERP-REV',
+  'symbol': 'BTC-SWAP-USDT',
   'price': '8200',
   'leverage': '12.08',
   'origQty': '5',
@@ -731,7 +731,7 @@ If `orderId` is set, it will get orders < that `orderId`. Otherwise most recent 
 `updateTime`|long|`1551062936784`|订单上次更新的时间戳
 `orderId`|integer|`469961015902208000`|订单ID
 `clientOrderId`|string|`213443`|用户定义的订单ID
-`symbol`|string|`BTC-PERP-REV`|合约名称
+`symbol`|string|`BTC-SWAP-USDT`|合约名称
 `price`|float|`8200`|订单价格
 `leverage`|float|`4`|订单杠杆
 `origQty`|float|`1.01`|订单数量
@@ -761,7 +761,7 @@ If `orderId` is set, it will get orders < that `orderId`. Otherwise most recent 
     'updateTime': '0',
     'orderId': '469961015902208000',
     'clientOrderId': '6423344174',
-    'symbol': 'BTC-PERP-REV',
+    'symbol': 'BTC-SWAP-USDT',
     'price': '8200',
     'leverage': '12.08',
     'origQty': '5',
@@ -808,7 +808,7 @@ GET /exapi/contract/v1/getOrder
 `updateTime`|long|`1551062936784`|订单上次更新的时间戳
 `orderId`|integer|`469961015902208000`|订单ID
 `clientOrderId`|string|`213443`|用户定义的订单ID
-`symbol`|string|`BTC-PERP-REV`|合约名称
+`symbol`|string|`BTC-SWAP-USDT`|合约名称
 `price`|float|`8200`|订单价格
 `leverage`|float|`4`|订单杠杆
 `origQty`|float|`1.01`|订单数量
@@ -837,7 +837,7 @@ GET /exapi/contract/v1/getOrder
   'updateTime': '0',
   'orderId': '469965509788581888',
   'clientOrderId': '1570760253946',
-  'symbol': 'BTC-PERP-REV',
+  'symbol': 'BTC-SWAP-USDT',
   'price': '8502.34',
   'leverage': '20',
   'origQty': '222',
@@ -880,7 +880,7 @@ GET /exapi/contract/v1/myTrades
 `tradeId`|long|`49366`|成交ID
 `orderId`|long|`630491436`|订单ID
 `matchOrderId`|long|`630491432`| 成交对手订单ID
-`symbolId`|string|`BTC-PERP-REV`|合约名称
+`symbolId`|string|`BTC-SWAP-USDT`|合约名称
 `price`|float|`4765.29`|成交价格
 `quantity`|float|`1.01`|成交数量
 `feeTokenId`|string|`USDT`|手续费类型（Token名称）
@@ -900,7 +900,7 @@ GET /exapi/contract/v1/myTrades
     'orderId': '469968263793737728',
     "matchOrderId": 436002617267469062,
     'accountId': '456552319339779840',
-    'symbolId': 'BTC-PERP-REV',
+    'symbolId': 'BTC-SWAP-USDT',
     'price': '8531.17',
     'quantity': '100',
     'feeTokenId': 'TBTC',
@@ -1088,14 +1088,14 @@ POST  /exapi/contract/v1/modifyMargin
 
 名称|类型|例子|描述
 ------------ | ------------ | ------------ | ------------
-`symbol`|string|`BTC-PERP-REV`|合约名称
+`symbol`|string|`BTC-SWAP-USDT`|合约名称
 `margin`|float|`12.3`|更新后的仓位保证金
 `timestamp`|long|`1541161088303`|更新时间戳
 
 ### **Example:**
 ```js
 {
-  'symbol':'BTC-PERP-REV',
+  'symbol':'BTC-SWAP-USDT',
   'margin': 15,
   'timestamp': 1541161088303
 }
@@ -1197,7 +1197,6 @@ POST /exapi/contract/v1/set_position_merge_mode
 <pre>
   0 - 合仓模式;
   1 - 分仓模式;
-  2 - 合仓+分仓;
 </pre>
 
 ### **Response:**
@@ -1238,7 +1237,7 @@ GET /exapi/contract/v1/get_position_merge_mode
 
 | 名称         | 类型       | 是否强制  | 说明                                                                                      |
 |------------|----------|-------|-----------------------------------------------------------------------------------------|
-| mergeMode  | integer  | true  |分仓合仓模式<br /><pre><br />  0 - 合仓模式;<br />  1 - 分仓模式;<br />  2  - 合仓+分仓;<br /><br /></pre> |
+| mergeMode  | integer  | true  |分仓合仓模式<br /><pre><br />  0 - 合仓模式;<br />  1 - 分仓模式;<br /><br /></pre> |
 | symbolId   | string   | true  |合约id|
 
 

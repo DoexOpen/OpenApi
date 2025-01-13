@@ -83,7 +83,7 @@ name|type|example|description
 `quoteAsset`|string|`USDT`|Quote asset for the contract. Meaning the contract is quoted in that currency.
 `quoteAssetPrecision`|float|`0.001`|Precision of the contract price (quoteAsset).
 `inverse`|bool|`true`|Whether the contract is inverse.
-`index`|string|`BTCUSDT`|Index symbol of the underlying asset. Index price can be accessed at the `index` endpoint. For instance, `BTC-PERP-REV` uses `BTCUSDT` for index price.
+`index`|string|`BTCUSDT`|Index symbol of the underlying asset. Index price can be accessed at the `index` endpoint. For instance, `BTC-SWAP-USDT` uses `BTCUSDT` for index price.
 `contractMultiplier`|string|`true`|The multiplier of contract.
 `icebergAllowed`|string|`false`|Whether iceberg orders are allowed.
 
@@ -147,10 +147,10 @@ name|type|example|description
         "filterType":"MIN_NOTIONAL"
       }],
       "exchangeId":"301",
-      "symbol":"BTC-PERP-REV",
-      "symbolName":"BTC-PERP-REV",
+      "symbol":"BTC-SWAP-USDT",
+      "symbolName":"BTC-SWAP-USDT",
       "status":"TRADING",
-      "baseAsset":"BTC-PERP-REV",
+      "baseAsset":"BTC-SWAP-USDT",
       "baseAssetPrecision":"1",
       "quoteAsset":"USDT",
       "quoteAssetPrecision":"0.01",
@@ -659,7 +659,7 @@ Name | Type | Example | Description
 `updateTime` | long | `1551062936784` | Timestamp when the order was last updated
 `orderId` | integer | `469961015902208000` | Order ID
 `clientOrderId` | string | `213443` | User-defined order ID
-`symbol` | string | `BTC-PERP-REV` | Contract name
+`symbol` | string | `BTC-SWAP-USDT` | Contract name
 `price` | float | `8200` | Order price
 `leverage` | float | `4` | Order leverage
 `origQty` | float | `1.01` | Order quantity
@@ -688,7 +688,7 @@ Name | Type | Example | Description
   'updateTime': '0',
   'orderId': '469961015902208000',
   'clientOrderId': '6423344174',
-  'symbol': 'BTC-PERP-REV',
+  'symbol': 'BTC-SWAP-USDT',
   'price': '8200',
   'leverage': '12.08',
   'origQty': '5',
@@ -738,7 +738,7 @@ Name | Type | Example | Description
 `updateTime` | long | `1551062936784` | Timestamp when the order was last updated
 `orderId` | integer | `469961015902208000` | Order ID
 `clientOrderId` | string | `213443` | User-defined order ID
-`symbol` | string | `BTC-PERP-REV` | Contract name
+`symbol` | string | `BTC-SWAP-USDT` | Contract name
 `price` | float | `8200` | Order price
 `leverage` | float | `4` | Order leverage
 `origQty` | float | `1.01` | Order quantity
@@ -768,7 +768,7 @@ Name | Type | Example | Description
     'updateTime': '0',
     'orderId': '469961015902208000',
     'clientOrderId': '6423344174',
-    'symbol': 'BTC-PERP-REV',
+    'symbol': 'BTC-SWAP-USDT',
     'price': '8200',
     'leverage': '12.08',
     'origQty': '5',
@@ -819,7 +819,7 @@ Name | Type | Example | Description
 `updateTime` | long | `1551062936784` | Timestamp when the order was last updated
 `orderId` | integer | `469961015902208000` | Order ID
 `clientOrderId` | string | `213443` | User-defined order ID
-`symbol` | string | `BTC-PERP-REV` | Contract name
+`symbol` | string | `BTC-SWAP-USDT` | Contract name
 `price` | float | `8200` | Order price
 `leverage` | float | `4` | Order leverage
 `origQty` | float | `1.01` | Order quantity
@@ -848,7 +848,7 @@ Name | Type | Example | Description
   'updateTime': '0',
   'orderId': '469965509788581888',
   'clientOrderId': '1570760253946',
-  'symbol': 'BTC-PERP-REV',
+  'symbol': 'BTC-SWAP-USDT',
   'price': '8502.34',
   'leverage': '20',
   'origQty': '222',
@@ -896,7 +896,7 @@ Name | Type | Example | Description
 `tradeId` | long | `49366` | Trade ID
 `orderId` | long | `630491436` | Order ID
 `matchOrderId` | long | `630491432` | Matched order ID
-`symbolId` | string | `BTC-PERP-REV` | Contract name
+`symbolId` | string | `BTC-SWAP-USDT` | Contract name
 `price` | float | `4765.29` | Trade price
 `quantity` | float | `1.01` | Trade quantity
 `feeTokenId` | string | `USDT` | Fee token type (Token name)
@@ -915,7 +915,7 @@ Name | Type | Example | Description
     'orderId': '469968263793737728',
     'matchOrderId': '436002617267469062',
     'accountId': '456552319339779840',
-    'symbolId': 'BTC-PERP-REV',
+    'symbolId': 'BTC-SWAP-USDT',
     'price': '8531.17',
     'quantity': '100',
     'feeTokenId': 'TBTC',
@@ -1109,7 +1109,7 @@ Name | Type | Required | Default | Description
 
 Name | Type | Example | Description
 ------------ | ------------ | ------------ | ------------
-`symbol` | string | `BTC-PERP-REV` | Contract name
+`symbol` | string | `BTC-SWAP-USDT` | Contract name
 `margin` | float | `12.3` | Updated position margin
 `timestamp` | long | `1541161088303` | Update timestamp
 
@@ -1117,7 +1117,7 @@ Name | Type | Example | Description
 
 ```js
 {
-  'symbol': 'BTC-PERP-REV',
+  'symbol': 'BTC-SWAP-USDT',
   'margin': 15,
   'timestamp': 1541161088303
 }
@@ -1212,7 +1212,7 @@ POST /exapi/contract/v1/set_position_merge_mode
 Name | Type | Required | Description
 ------------ | ------------ | ------------ | ------------
 `symbol_id` | string | `YES` | Contract ID
-`merge_mode` | string | `NO` | Merge mode: 0 - Merge mode; 1 - Split mode; 2 - Merge + Split mode
+`merge_mode` | string | `NO` | Merge mode: 0 - Merge mode; 1 - Split mode;
 
 ### **Response:**
 
@@ -1251,7 +1251,7 @@ Name | Type | Required | Description
 
 Name | Type | Required | Description
 ------------ | ------------ | ------------ | ------------
-`mergeMode` | integer | true | Merge mode: 0 - Merge mode; 1 - Split mode; 2 - Merge + Split mode
+`mergeMode` | integer | true | Merge mode: 0 - Merge mode; 1 - Split mode; 
 `symbolId` | string | true | Contract ID
 
 ### **Example:**
