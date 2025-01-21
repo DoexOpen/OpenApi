@@ -475,7 +475,7 @@ Name | Type | Required | Default | Description
 `price_type`| string | `NO` | `INPUT` | Price type, supports `INPUT`, `OPPONENT`, `QUEUE`, `OVER`, `MARKET_PRICE`.
 `quantity`| float | `YES` | | Order contract quantity.
 `leverage`| float | `YES`. (Not required for \*\_CLOSE orders) | | Order leverage.
-`time_in_force`| string | `NO` | `GTC` | Time in Force for `LIMIT` orders, supports `GTC`, `FOK`, `IOC`, `LIMIT_MAKER`.
+`time_in_force`| string | `NO` | `GTC` | Time in Force for `LIMIT` orders, supports `GTC`, `FOK`, `IOC`, `MAKER`.
 `is_long`| number | `YES` | `GTC` | 0 - Short position; 1 - Long position;
 `position_index` | number | `NO` | 0 | Position index, required for closing positions in sub-accounts; otherwise, not required or 0.
 
@@ -520,7 +520,7 @@ Name | Type | Example | Description
 `liquidationPrice`| string | `0` | Forced liquidation price
 `closePnl`| string | `12122` | Close position profit and loss
 `updateTime`| string | `1551062936784` | Last update timestamp of the order
-`timeInForce`| string | `GTC` | Time in Force type (`GTC`, `FOK`, `IOC`, `LIMIT_MAKER`)
+`timeInForce`| string | `GTC` | Time in Force type (`GTC`, `FOK`, `IOC`, `MAKER`)
 
 ### **Example:**
 ```json
@@ -614,7 +614,7 @@ Name|Type|Example|Description
 `liquidationPrice`| string | `0`                  | Forced liquidation price
 `closePnl`| string | `12122`              | Close position profit and loss
 `updateTime`|string| `1551062936784`      | Last update timestamp of the order
-`timeInForce`|string| `GTC`                | Time in Force type (`GTC`, `FOK`, `IOC`, `LIMIT_MAKER`)
+`timeInForce`|string| `GTC`                | Time in Force type (`GTC`, `FOK`, `IOC`, `MAKER`)
 
 In the `fees` information group:
 
@@ -705,7 +705,7 @@ Name | Type | Example | Description
 `orderType` | string | `YES` | Order type (`LIMIT` and `STOP`)
 `side` | string | `BUY` | Order direction (`BUY_OPEN`, `SELL_OPEN`, `BUY_CLOSE`, `SELL_CLOSE`)
 `fees` | | | Order fees
-`timeInForce` | string | `GTC` | Time in Force type (`GTC`, `FOK`, `IOC`, `LIMIT_MAKER`)
+`timeInForce` | string | `GTC` | Time in Force type (`GTC`, `FOK`, `IOC`, `MAKER`)
 `status` | string | `NEW` | Order status (`NEW`, `PARTIALLY_FILLED`, `FILLED`, `CANCELED`, `REJECTED`). The order status returned by this endpoint will always be `CANCELED`
 `priceType` | string | `INPUT` | Price type (`INPUT`, `OPPONENT`, `QUEUE`, `OVER`, `MARKET`)
 
@@ -744,7 +744,7 @@ Name | Type | Example | Description
 
 ## `Contract Order History`
 
-Retrieves history of orders that have been partially or fully filled or canceled. This API endpoint requires your request to be signed.
+Contract Order History
 
 ### **Request Weight:**
 
@@ -758,13 +758,11 @@ GET /exapi/contract/v1/historyOrders
 ### **Parameters:**
 
 Name | Type | Required | Default | Description
------------- | ------------ | ------------ | ------------ | ------------
-`symbol` | string | `NO` | | Symbol to return open orders for. If not sent, orders of all contracts will be returned.
-`orderId` | integer | `NO` | | Order ID
-`orderType` | string | `YES` | | The order type, possible types: `LIMIT`, `STOP`
-`limit` | integer | `NO` | `20` | Number of entries to return.
-
-If `orderId` is set, it will get orders < that `orderId`. Otherwise most recent orders are returned.
+------------ | ------------ |----------|---------| ------------
+`symbolId`    | string | `NO`     |         |  Contract name
+`limit` | integer | `NO`     | `20`    | Number of entries to return.
+`orderType`   | string | `YES`    |         | The order type, possible types: `LIMIT`, `STOP`
+`side` | string | `YES` |         | Order direction (`BUY_OPEN`, `SELL_OPEN`, `BUY_CLOSE`, `SELL_CLOSE`)
 
 ### **Response:**
 
@@ -784,7 +782,7 @@ Name | Type | Example | Description
 `orderType` | string | `YES` | Order type (`LIMIT` and `STOP`)
 `side` | string | `BUY` | Order direction (`BUY_OPEN`, `SELL_OPEN`, `BUY_CLOSE`, `SELL_CLOSE`)
 `fees` | | | Order fees
-`timeInForce` | string | `GTC` | Time in Force type (`GTC`, `FOK`, `IOC`, `LIMIT_MAKER`)
+`timeInForce` | string | `GTC` | Time in Force type (`GTC`, `FOK`, `IOC`, `MAKER`)
 `status` | string | `NEW` | Order status (`NEW`, `PARTIALLY_FILLED`, `FILLED`, `CANCELED`, `REJECTED`)
 `priceType` | string | `INPUT` | Price type (`INPUT`, `OPPONENT`, `QUEUE`, `OVER`, `MARKET`)
 
@@ -866,7 +864,7 @@ Name | Type | Example | Description
 `priceType` | string | `INPUT` | Price type (`INPUT`, `OPPONENT`, `QUEUE`, `OVER`, `MARKET`)
 `side` | string | `BUY` | Order direction (`BUY_OPEN`, `SELL_OPEN`, `BUY_CLOSE`, `SELL_CLOSE`)
 `status` | string | `NEW` | Order status (`NEW`, `PARTIALLY_FILLED`, `FILLED`, `CANCELED`, `REJECTED`)
-`timeInForce` | string | `GTC` | Time in Force type (`GTC`, `FOK`, `IOC`, `LIMIT_MAKER`)
+`timeInForce` | string | `GTC` | Time in Force type (`GTC`, `FOK`, `IOC`, `MAKER`)
 `fees` | | | Order fees
 
 In the `fees` information group:
@@ -1137,25 +1135,23 @@ POST /exapi/contract/v1/modifyMargin
 
 Name | Type | Required | Default | Description
 ------------ | ------------ | ------------ | ------------ | ------------
-`symbol` | string | `YES` | | Contract name.
-`side` | string | `YES` | | Position direction, `LONG` (long position) or `SHORT` (short position).
+`symbol_id` | string | `YES` | | Contract name.
+`is_long` | integer | `YES` | 1 for long position, 2 for short position
 `amount` | float | `YES` | | Amount to increase (positive value) or decrease (negative value) the margin. Note that this amount refers to the contract's underlying pricing asset (i.e., the asset in which the contract is settled).
+`type`|string|`YES`||Increment -INC; Reduction -DEC
+`position_index`|string|`YES`||Location index; <br/> Warehouse - pass the specific value; <br/> Close - Pass 0/ no pass
 
 ### **Response:**
 
 Name | Type | Example | Description
------------- | ------------ | ------------ | ------------
-`symbol` | string | `BTC-SWAP-USDT` | Contract name
-`margin` | float | `12.3` | Updated position margin
-`timestamp` | long | `1541161088303` | Update timestamp
+------------ | ------------ |---------| ------------
+`success` | string | `true`  | true: Success; false: Failure
 
 ### **Example:**
 
 ```js
 {
-  'symbol': 'BTC-SWAP-USDT',
-  'margin': 15,
-  'timestamp': 1541161088303
+  "success": true
 }
 ```
 
@@ -1425,7 +1421,7 @@ Time in force.
 
 `FOK`: Fill or kill. Meaning the order will be canceled if not immediately filled. Recommended if you want to fill as much as possible, but not necessarily all of, the order immediately.
 
-`LIMIT_MAKER`: Order will be cancelled if executed immediately.
+`MAKER`: Order will be cancelled if executed immediately.
 
 ## `orderType`
 

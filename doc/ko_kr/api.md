@@ -471,7 +471,7 @@ POST /exapi/contract/v1/order
 `price_type`| string      | `NO`|`INPUT`|가격 유형, 지원되는 가격 유형은 `INPUT`, `OPPONENT`, `QUEUE`, `OVER`, `MARKET_PRICE`.
 `quantity`| float       | `YES`       ||주문 계약 수량.
 `leverage`| float       | `YES`.（\*\_CLOSE 평창 주문 **필수 아님**） ||주문 레버리지.
-`time_in_force`| string      | `NO`        |`GTC`|`LIMIT` 주문의 시간 지시(Time in Force), 현재 지원되는 유형은 `GTC`, `FOK`, `IOC`, `LIMIT_MAKER`.
+`time_in_force`| string      | `NO`        |`GTC`|`LIMIT` 주문의 시간 지시(Time in Force), 현재 지원되는 유형은 `GTC`, `FOK`, `IOC`, `MAKER`.
 `is_long`| number      | `YES`        |`GTC`|0-공매도; 1-공매수;
 `position_index` | number | `NO`        | 0 | 포지션 인덱스, 분할 포지션에서 평창 시 필수; 다른 경우에는 전달하지 않거나 0을 전달
 
@@ -516,7 +516,7 @@ POST /exapi/contract/v1/order
 `liquidationPrice`| string | `0`                  |강제 청산 가격
 `closePnl`| string | `12122`              |평창 손익
 `updateTime`|string| `1551062936784`      |주문 마지막 업데이트 타임스탬프
-`timeInForce`|string| `GTC`                |시간 지시(Time in Force) 유형(`GTC`, `FOK`, `IOC`, `LIMIT_MAKER`)
+`timeInForce`|string| `GTC`                |시간 지시(Time in Force) 유형(`GTC`, `FOK`, `IOC`, `MAKER`)
 
 ### **Example:**
 ```js
@@ -611,7 +611,7 @@ GET /exapi/contract/v1/order/open_orders
 `liquidationPrice`| string | `0`                  |강제 청산 가격
 `closePnl`| string | `12122`              |청산 손익
 `updateTime`|string| `1551062936784`      |주문 마지막 업데이트 타임스탬프
-`timeInForce`|string| `GTC`                |유효 시간 (Time in Force) 유형 (`GTC`, `FOK`, `IOC`, `LIMIT_MAKER`)
+`timeInForce`|string| `GTC`                |유효 시간 (Time in Force) 유형 (`GTC`, `FOK`, `IOC`, `MAKER`)
 
 `fees` 정보 그룹 내:
 
@@ -704,7 +704,7 @@ DELETE /exapi/contract/v1/order/cancel
 `orderType`|string|`YES`|주문 유형 (`LIMIT` 및 `STOP`)
 `side`|string|`BUY`|주문 방향 (`BUY_OPEN`, `SELL_OPEN`, `BUY_CLOSE`, `SELL_CLOSE`)
 `fees`|||주문 수수료
-`timeInForce`|string|`GTC`|유효 시간 (Time in Force) 유형 (`GTC`, `FOK`, `IOC`, `LIMIT_MAKER`)
+`timeInForce`|string|`GTC`|유효 시간 (Time in Force) 유형 (`GTC`, `FOK`, `IOC`, `MAKER`)
 `status`|string|`NEW`|주문 상태 (`NEW`, `PARTIALLY_FILLED`, `FILLED`, `CANCELED`, `REJECTED`). 이 엔드포인트가 반환하는 주문 상태는 모두 `CANCELED`입니다.
 `priceType`|string|`INPUT`|가격 유형 (`INPUT`, `OPPONENT`, `QUEUE`, `OVER`, `MARKET`)
 
@@ -755,12 +755,10 @@ GET /exapi/contract/v1/historyOrders
 ### **Parameters:**
 이름|타입|필수 여부|기본값|설명
 ------------ | ------------ | ------------ | ------------ | --------
-`symbol`|string|`NO`||열린 주문을 반환할 심볼. 보내지 않으면 모든 계약의 주문이 반환됩니다.
-`orderId`|integer|`NO`|| 주문 ID
-`orderType`|string|`YES`||주문 유형, 가능한 유형: `LIMIT`, `STOP`
-`limit`|integer|`NO`|`20`|반환할 항목 수.
-
-`orderId`가 설정된 경우, 해당 `orderId`보다 작은 주문을 가져옵니다. 그렇지 않으면 가장 최근의 주문이 반환됩니다.
+`symbolId`|문자열|아니오|      |  계약 이름
+`limit`|정수|아니오| `20` | 요청 수량, 최대값은 100
+`orderType`|문자열|예|      |주문 유형: `LIMIT` (지정가, 현재는 이 유형만 지원), `STOP` (지정가 체결 시 주문, 현재 API에서는 이 유형의 주문 불가)
+`side`|문자열|예|`BUY`|주문 방향 (`BUY_OPEN` 매수 개시, `SELL_OPEN` 매도 개시, `BUY_CLOSE` 매수 청산, `SELL_CLOSE` 매도 청산)
 
 ### **Response:**
 이름|타입|예시|설명
@@ -779,7 +777,7 @@ GET /exapi/contract/v1/historyOrders
 `orderType`|string|`YES`|주문 유형 (`LIMIT` 및 `STOP`)
 `side`|string|`BUY`|주문 방향 (`BUY_OPEN`, `SELL_OPEN`, `BUY_CLOSE`, `SELL_CLOSE`)
 `fees`|||주문 수수료
-`timeInForce`|string|`GTC`|유효 시간 (Time in Force) 유형 (`GTC`, `FOK`, `IOC`, `LIMIT_MAKER`)
+`timeInForce`|string|`GTC`|유효 시간 (Time in Force) 유형 (`GTC`, `FOK`, `IOC`, `MAKER`)
 `status`|string|`NEW`|주문 상태 (`NEW`, `PARTIALLY_FILLED`, `FILLED`, `CANCELED`, `REJECTED`)
 `priceType`|string|`INPUT`|가격 유형 (`INPUT`, `OPPONENT`, `QUEUE`, `OVER`, `MARKET`)
 
@@ -815,6 +813,7 @@ GET /exapi/contract/v1/historyOrders
   }
 ]
 ```
+
 
 ## `주문 상세 정보`
 
@@ -856,7 +855,7 @@ GET /exapi/contract/v1/getOrder
 `priceType`|string|`INPUT`|가격 유형 (`INPUT`, `OPPONENT`, `QUEUE`, `OVER`, `MARKET`)
 `side`|string|`BUY`|주문 방향 (`BUY_OPEN`, `SELL_OPEN`, `BUY_CLOSE`, `SELL_CLOSE`)
 `status`|string|`NEW`|주문 상태 (`NEW`, `PARTIALLY_FILLED`, `FILLED`, `CANCELED`, `REJECTED`)
-`timeInForce`|string|`GTC`|유효 시간 (Time in Force) 유형 (`GTC`, `FOK`, `IOC`, `LIMIT_MAKER`)
+`timeInForce`|string|`GTC`|유효 시간 (Time in Force) 유형 (`GTC`, `FOK`, `IOC`, `MAKER`)
 `fees`|||주문 수수료
 
 `fees` 정보 그룹 내:
@@ -1120,25 +1119,24 @@ POST /exapi/contract/v1/modifyMargin
 
 이름|타입|필수 여부|기본값|설명
 ------------ | ------------ | ------------ | ------------ | -------
-`symbol`|string|`YES`||계약 이름
-`side`|string|`YES`||포지션 방향, `LONG`(롱 포지션) 또는 `SHORT`(숏 포지션)
-`amount`|float|`YES`||증가(양수) 또는 감소(음수)할 증거금의 수량. 이 수량은 계약의 기초 자산(즉, 계약 결제의 기초 자산)을 기준으로 합니다.
+| `symbol_id` | string | 예 |  | 계약 이름 |
+| `is_long` | string | 예 |  | 포지션 방향, 1(롱 포지션) 또는 0(숏 포지션) |
+| `amount` | float | 예 |  | 증가(양수) 또는 감소(음수)할 마진 수량. 계약 결제의 기초 자산(즉, 계약 결제의 대상)을 의미합니다. |
+| `type` | string | 예 |  | 증가 - INC; 감소 - DEC |
+| `position_index` | string | 예 |  | 포지션 인덱스; <br/> 분할 포지션 - 구체적인 값 전달; <br/> 통합 포지션 - 0 전달 또는 생략 |
 
 ### **Response:**
 
 이름|타입|예시|설명
 ------------ | ------------ | ------------ | ------------
-`symbol`|string|`BTC-SWAP-USDT`|계약 이름
-`margin`|float|`12.3`|업데이트된 포지션 증거금
-`timestamp`|long|`1541161088303`|업데이트 타임스탬프
+`success` | string | `true`  | true: Success; false: Failure
+
 
 ### **Example:**
 
 ```json
 {
-  "symbol": "BTC-SWAP-USDT",
-  "margin": 15,
-  "timestamp": 1541161088303
+  "success": true
 }
 ```
 
@@ -1418,7 +1416,7 @@ GET /exapi/contract/v1/query_leverage_merge
 
 `FOK`: 전량 체결 또는 취소. 주문은 최적의 가격으로 전량 체결되거나 즉시 취소됩니다.
 
-`LIMIT_MAKER`: 주문이 즉시 체결될 경우, 주문이 취소됩니다.
+`MAKER`: 주문이 즉시 체결될 경우, 주문이 취소됩니다.
 
 ## `orderType`
 

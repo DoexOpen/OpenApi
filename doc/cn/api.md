@@ -471,7 +471,7 @@ POST /exapi/contract/v1/order
 `price_type`| string      | `NO`|`INPUT`|价格类型，支持的价格类型为`INPUT`、`OPPONENT`、`QUEUE`、`OVER`、`MARKET_PRICE`。
 `quantity`| float       | `YES`       ||订单的合约数量。
 `leverage`| float       | `YES`.（\*\_CLOSE平仓单**不强制**） ||订单的杠杆。
-`time_in_force`| string      | `NO`        |`GTC`|`LIMIT`订单的时间指令（Time in Force），目前支持的类型为`GTC`、`FOK`、`IOC`、`LIMIT_MAKER`。
+`time_in_force`| string      | `NO`        |`GTC`|`LIMIT`订单的时间指令（Time in Force），目前支持的类型为`GTC`、`FOK`、`IOC`、`MAKER`。
 `is_long`| number      | `YES`        |`GTC`|0-空仓； 1-多仓；
 `position_index` | number | `NO`        | 0 | 仓位索引,  分仓下平仓必传；其他情况不传或传0
 
@@ -516,7 +516,7 @@ POST /exapi/contract/v1/order
 `liquidationPrice`| string | `0`                  |强制平仓价格
 `closePnl`| string | `12122`              |平仓损益
 `updateTime`|string| `1551062936784`      |订单上次更新的时间戳
-`timeInForce`|string| `GTC`                |时效单（Time in Force)类型(`GTC`、`FOK`、`IOC`、`LIMIT_MAKER`)
+`timeInForce`|string| `GTC`                |时效单（Time in Force)类型(`GTC`、`FOK`、`IOC`、`MAKER`)
 
 ### **Example:**
 ```js
@@ -611,7 +611,7 @@ GET /exapi/contract/v1/order/open_orders
 `liquidationPrice`| string | `0`                  |强制平仓价格
 `closePnl`| string | `12122`              |平仓损益
 `updateTime`|string| `1551062936784`      |订单上次更新的时间戳
-`timeInForce`|string| `GTC`                |时效单（Time in Force)类型(`GTC`、`FOK`、`IOC`、`LIMIT_MAKER`)
+`timeInForce`|string| `GTC`                |时效单（Time in Force)类型(`GTC`、`FOK`、`IOC`、`MAKER`)
 
 在`fees`信息组里:
 
@@ -702,7 +702,7 @@ DELETE /exapi/contract/v1/order/cancel
 `orderType`|string|`YES`|订单类型（`LIMIT`和`STOP`）
 `side`|string|`BUY`|订单方向（`BUY_OPEN`、`SELL_OPEN`、`BUY_CLOSE`、`SELL_CLOSE`）
 `fees`|||订单的手续费
-`timeInForce`|string|`GTC`|时效单（Time in Force)类型(`GTC`、`FOK`、`IOC`、`LIMIT_MAKER`)
+`timeInForce`|string|`GTC`|时效单（Time in Force)类型(`GTC`、`FOK`、`IOC`、`MAKER`)
 `status`|string|`NEW`|订单状态（`NEW`、`PARTIALLY_FILLED`、`FILLED`、`CANCELED`、`REJECTED`）。该端点返回的订单状态都是`CANCELED`
 `priceType`|string|`INPUT`|价格类型（`INPUT`、`OPPONENT`、`QUEUE`、`OVER`、`MARKET`）
 
@@ -739,7 +739,7 @@ DELETE /exapi/contract/v1/order/cancel
 
 ## `合约历史委托`
 
-Retrieves history of orders that have been partially or fully filled or canceled. This API endpoint requires your request to be signed.
+合约历史委托
 
 ### **Request Weight:**
 
@@ -751,14 +751,13 @@ GET /exapi/contract/v1/historyOrders
 ```
 
 ### **Parameters:**
-名称|类型|是否强制|默认|描述
------------- | ------------ | ------------ | ------------ | --------
-`symbol`|string|`NO`||Symbol to return open orders for. If not sent, orders of all contracts will be returned.
-`orderId`|integer|`NO`|| Order ID
-`orderType`|string|`YES`||The order type, possible types: `LIMIT`, `STOP`
-`limit`|integer|`NO`|`20`|Number of entries to return.
+名称|类型|是否强制| 默认   |描述
+------------ | ------------ | ------------ |------| --------
+`symbolId`|string|`NO`|      |  合约名称
+`limit`|integer|`NO`| `20` | 请求数量，最大值是100
+`orderType`|string|`YES`|      |订单类型: `LIMIT`（限价,目前仅支持这个）, `STOP`（止盈止损单，目前api不支持下这种类型的单）
+`side`|string|`BUY`|订单方向（`BUY_OPEN`、`SELL_OPEN`、`BUY_CLOSE`、`SELL_CLOSE`）
 
-If `orderId` is set, it will get orders < that `orderId`. Otherwise most recent orders are returned.
 
 ### **Response:**
 名称|类型|例子|描述
@@ -777,7 +776,7 @@ If `orderId` is set, it will get orders < that `orderId`. Otherwise most recent 
 `orderType`|string|`YES`|订单类型（`LIMIT`和`STOP`）
 `side`|string|`BUY`|订单方向（`BUY_OPEN`、`SELL_OPEN`、`BUY_CLOSE`、`SELL_CLOSE`）
 `fees`|||订单的手续费
-`timeInForce`|string|`GTC`|时效单（Time in Force)类型(`GTC`、`FOK`、`IOC`、`LIMIT_MAKER`)
+`timeInForce`|string|`GTC`|时效单（Time in Force)类型(`GTC`、`FOK`、`IOC`、`MAKER`)
 `status`|string|`NEW`|订单状态（`NEW`、`PARTIALLY_FILLED`、`FILLED`、`CANCELED`、`REJECTED`）
 `priceType`|string|`INPUT`|价格类型（`INPUT`、`OPPONENT`、`QUEUE`、`OVER`、`MARKET`）
 
@@ -855,7 +854,7 @@ GET /exapi/contract/v1/getOrder
 `priceType`|string|`INPUT`|价格类型（`INPUT`、`OPPONENT`、`QUEUE`、`OVER`、`MARKET`）
 `side`|string|`BUY`|订单方向（`BUY_OPEN`、`SELL_OPEN`、`BUY_CLOSE`、`SELL_CLOSE`）
 `status`|string|`NEW`|订单状态（`NEW`、`PARTIALLY_FILLED`、`FILLED`、`CANCELED`、`REJECTED`）
-`timeInForce`|string|`GTC`|时效单（Time in Force)类型(`GTC`、`FOK`、`IOC`、`LIMIT_MAKER`)
+`timeInForce`|string|`GTC`|时效单（Time in Force)类型(`GTC`、`FOK`、`IOC`、`MAKER`)
 `fees`|||订单的手续费
 
 在`fees`信息组里:
@@ -1116,24 +1115,23 @@ POST  /exapi/contract/v1/modifyMargin
 
 名称|类型|是否强制|默认|描述
 ------------ | ------------ | ------------ | ------------ | -------
-`symbol`|string|`YES`||合约名称。
-`side`|string|`YES`||仓位方向，`LONG`（多仓）或者`SHORT`（空仓）。
+`symbol_id`|string|`YES`||合约名称。
+`is_long`|string|`YES`||仓位方向，1（多仓）或者 0（空仓）。
 `amount`|float|`YES`||增加（正值）或者减少（负值）保证金的数量。请注意这个数量指的是合约标的定价资产（即合约结算的标的）。
+`type`|string|`YES`||增加-INC； 减少-DEC
+`position_index`|string|`YES`||仓位索引；<br/>分仓   -    传具体值；<br/>合仓   -    传0/不传
 
 ### **Response:**
 
 名称|类型|例子|描述
 ------------ | ------------ | ------------ | ------------
-`symbol`|string|`BTC-SWAP-USDT`|合约名称
-`margin`|float|`12.3`|更新后的仓位保证金
-`timestamp`|long|`1541161088303`|更新时间戳
+`success` | string | `true`  | true: Success; false: Failure
+
 
 ### **Example:**
-```js
+```json
 {
-  'symbol':'BTC-SWAP-USDT',
-  'margin': 15,
-  'timestamp': 1541161088303
+  "success": true
 }
 ```
 
@@ -1410,7 +1408,7 @@ GET /exapi/contract/v1/query_leverage_merge
 
 `FOK`: 全部成交或者撤销。订单要么在一个最佳可成交价上全部成交，要么就会直接撤销。
 
-`LIMIT_MAKER`: 如果订单会马上成交，订单会被撤销。
+`MAKER`: 如果订单会马上成交，订单会被撤销。
 
 ## `orderType`
 
